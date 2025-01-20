@@ -1,40 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Streams</title>
+    <title>4 Live Streams</title>
     <link rel="stylesheet" href="https://vjs.zencdn.net/8.0.4/video-js.css">
+    <style>
+        body {
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 5px; /* רווח מינימלי */
+            height: 100vh; /* גובה הדף */
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-    <h1>Live Streams</h1>
-
     <!-- First Live Stream -->
-    <div>
-        <h2>Stream 1</h2>
-        <video
-            id="liveStream1"
-            class="video-js vjs-default-skin"
-            controls
-            autoplay
-            width="640"
-            height="360">
-        </video>
-    </div>
-
+    <video id="liveStream1" class="video-js vjs-default-skin" controls autoplay></video>
     <!-- Second Live Stream -->
-    <div>
-        <h2>Stream 2</h2>
-        <video
-            id="liveStream2"
-            class="video-js vjs-default-skin"
-            controls
-            autoplay
-            width="640"
-            height="360">
-        </video>
-    </div>
+    <video id="liveStream2" class="video-js vjs-default-skin" controls autoplay></video>
+    <!-- Third Live Stream -->
+    <video id="liveStream3" class="video-js vjs-default-skin" controls autoplay></video>
+    <!-- Fourth Live Stream -->
+    <video id="liveStream4" class="video-js vjs-default-skin" controls autoplay></video>
 
     <script src="https://vjs.zencdn.net/8.0.4/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
@@ -54,9 +49,11 @@
             }
         }
 
-        // Initialize both streams
+        // Initialize all 4 streams
         setupPlayer("liveStream1", streamUrl);
         setupPlayer("liveStream2", streamUrl);
+        setupPlayer("liveStream3", streamUrl);
+        setupPlayer("liveStream4", streamUrl);
     </script>
 </body>
 </html>
