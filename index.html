@@ -7,18 +7,25 @@
     <title>4 Live Streams</title>
     <link rel="stylesheet" href="https://vjs.zencdn.net/8.0.4/video-js.css">
     <style>
+        /* הגדרות כלליות לגוף הדף */
         body {
             margin: 0;
+            padding: 0;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 5px; /* רווח מינימלי */
-            height: 100vh; /* גובה הדף */
+            grid-template-columns: 1fr 1fr; /* שני טורים */
+            grid-template-rows: 1fr 1fr;   /* שתי שורות */
+            gap: 2px; /* רווח מינימלי בין הנגנים */
+            height: 100vh; /* גובה הדף כולו */
+            width: 100vw;  /* רוחב הדף כולו */
+            background-color: black; /* רקע כהה */
         }
+
+        /* הגדרות הנגנים */
         video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* ווידאו יכסה את כל השטח */
+            background-color: black; /* רקע כהה למקרה שאין ווידאו */
         }
     </style>
 </head>
