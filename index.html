@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Streams</title>
+    <link rel="stylesheet" href="https://vjs.zencdn.net/8.0.4/video-js.css">
+</head>
+<body>
+    <h1>Live Streams</h1>
+
+    <!-- First Live Stream -->
+    <div>
+        <h2>Stream 1</h2>
+        <video
+            id="liveStream1"
+            class="video-js vjs-default-skin"
+            controls
+            autoplay
+            width="640"
+            height="360">
+        </video>
+    </div>
+
+    <!-- Second Live Stream -->
+    <div>
+        <h2>Stream 2</h2>
+        <video
+            id="liveStream2"
+            class="video-js vjs-default-skin"
+            controls
+            autoplay
+            width="640"
+            height="360">
+        </video>
+    </div>
+
+    <script src="https://vjs.zencdn.net/8.0.4/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+    <script>
+        // URL for the live stream
+        const streamUrl = "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8";
+
+        // Function to set up HLS streams
+        function setupPlayer(playerId, streamUrl) {
+            const video = document.getElementById(playerId);
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(streamUrl);
+                hls.attachMedia(video);
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = streamUrl;
+            }
+        }
+
+        // Initialize both streams
+        setupPlayer("liveStream1", streamUrl);
+        setupPlayer("liveStream2", streamUrl);
+    </script>
+</body>
+</html>
