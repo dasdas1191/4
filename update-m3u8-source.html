@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>עריכת קובץ HTML</title>
+</head>
+<body>
+    <h1>עריכת כתובות וידאו ב-HTML</h1>
+
+    <div>
+        <label>כתובת וידאו 1:</label>
+        <input type="text" id="video1-url" placeholder="כתובת וידאו 1">
+    </div>
+    <div>
+        <label>כתובת וידאו 2:</label>
+        <input type="text" id="video2-url" placeholder="כתובת וידאו 2">
+    </div>
+    <button onclick="updateHTML()">שמור שינויים</button>
+
+    <h2>סטטוס:</h2>
+    <p id="status"></p>
+
+    <script>
+        const GITHUB_TOKEN = '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'; // Token שסיפקת
+        const REPO_OWNER = 'DASDAS1191'; // שם המשתמש שלך ב-GitHub
+        const REPO_NAME = '4'; // שם המאגר
+        const FILE_PATH = 'index.html'; // הנתיב לקובץ שברצונך לערוך
+
+        async function updateHTML() {
+            const video1Url = document.getElementById('video1-url').value;
+            const video2Url = document.getElementById('video2-url').value;
+
+            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+            const response = await fetch(url, {
+                headers: {
+                    Authorization: `token ${GITHUB_TOKEN}`,
+                },
+            });
+
+            if (!response.ok) {
+                document.getElementById('status').textContent = 'שגיאה בטעינת הקובץ!';
+                return;
+            }
+
+            const fileData = await response.json();
+            const content = atob(fileData.content);
+
+            // עדכון הכתובות בקובץ
+            const updatedContent = content
+                .replace(/value=".*?"/, `value="${video1Url}"`)
+                .replace(/value=".*?"/, `value="${video2Url}"`);
+
+            const updatedFile = btoa(updatedContent);
+
+            // שמירת הקובץ המעודכן
+            const updateResponse = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    Authorization: `token ${GITHUB_TOKEN}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: 'Updated video URLs',
+                    content: updatedFile,
+                    sha: fileData.sha,
+                }),
+            });
+
+            if (updateResponse.ok) {
+                document.getElementById('status').textContent = 'הקובץ נשמר בהצלחה!';
+            } else {
+                document.getElementById('status').textContent = 'שגיאה בשמירת הקובץ!';
+            }
+        }
+    </script>
+</body>
+</html>
